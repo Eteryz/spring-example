@@ -2,18 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Редактирование продукта [[${product.title}]]</title>
+    <title>[[#{product.edit.title}]] [[ ${product.title}]]</title>
 </head>
 <body>
-<a data-th-href="@{/catalogue/products/{productId}(productId=${product.id})}">&larr; Product</a>
-<h1>Редактирование продукта - [[${product.title}]]</h1>
+
+<a data-th-href="@{/catalogue/products/{productId}(productId=${product.id})}">
+    &larr; <span data-th-text="#{product.edit.back}"/>
+</a>
+<h1><span data-th-text="#{product.edit.header}"/> - [[${product.title}]]</h1>
+
 <form method="post" data-th-action="@{/catalogue/products/{productId}/edit(productId=${product.id})}">
     <label>
-        Название: <br>
+        <span data-th-text="#{product.title}"/>:<br>
         <input type="text" name="title" data-th-value="${product.title}">
     </label><br>
     <label>
-        Описание: <br>
+        <span data-th-text="#{product.description}"></span>:<br>
         <textarea name="details" data-th-text="${product.details}"></textarea>
     </label><br>
     <button type="submit">Изменить</button>

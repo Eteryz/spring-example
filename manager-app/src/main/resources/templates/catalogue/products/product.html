@@ -5,16 +5,20 @@
     <title>[[${product.title}]]</title>
 </head>
 <body>
-<a data-th-href="@{/catalogue/products/list}">&larr; К списку товаров</a>
+<a data-th-href="@{/catalogue/products/list}">
+    &larr; <span data-th-text="#{product.create.back}"/>
+</a>
 <h1 data-th-text="${product.title}"></h1>
 <ul>
-    <li><strong>ID</strong>: <span data-th-text="${product.id}"/></li>
-    <li><strong>Name</strong>: <span data-th-text="${product.title}"/></li>
-    <li><strong>Details</strong>: <span data-th-text="${product.details}"/></li>
+    <li><strong data-th-text="#{product.id}"/>: <span data-th-text="${product.id}"/></li>
+    <li><strong data-th-text="#{product.title}"/>: <span data-th-text="${product.title}"/></li>
+    <li><strong data-th-text="#{product.description}"/>: <span data-th-text="${product.details}"/></li>
 </ul>
-<a data-th-href="@{/catalogue/products/{productId}/edit(productId=${product.id})}">Редактировать товар</a>
+<a data-th-href="@{/catalogue/products/{productId}/edit(productId=${product.id})}"
+   data-th-text="#{product.edit.button.content}">
+</a>
 <form method="post" data-th-action="@{/catalogue/products/{productId}/delete(productId=${product.id})}">
-    <button type="submit">Удалить</button>
+    <button type="submit" data-th-text="#{product.delete.button.content}"/>
 </form>
 </body>
 </html>

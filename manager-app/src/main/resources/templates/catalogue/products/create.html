@@ -2,21 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Новый продукт</title>
+    <title>[[#{product.create.title}]]</title>
 </head>
 <body>
-<a data-th-href="@{/catalogue/products/list}">&larr; К списку товаров</a>
-<h1>Создание нового продукта</h1>
+
+<a data-th-href="@{/catalogue/products/list}">
+    &larr; <span data-th-text="#{product.create.back}"/>
+</a>
+<h1 data-th-text="#{product.create.header}"/>
+
 <form method="post" data-th-action="@{/catalogue/products/create}">
     <label>
-        Название: <br>
+        <span data-th-text="#{product.title}"/>:<br>
         <input type="text" name="title">
     </label><br>
     <label>
-        Описание: <br>
+        <span data-th-text="#{product.description}"></span>:<br>
         <textarea name="details"></textarea>
     </label><br>
-    <button type="submit">Создать</button>
+    <button type="submit" data-th-text="#{product.create.button.content}"></button>
 </form>
 
 </body>

@@ -2,27 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Продукты</title>
+    <title data-th-text="#{products.list.title}"></title>
 </head>
 <body>
-<a data-th-href="@{/catalogue/products/create}">Создать продукт</a>
-<h1>Список товаров</h1>
+<a data-th-href="@{/catalogue/products/create}"
+   data-th-text="#{products.list.createProductButton.content}">
+
+</a>
+<h1 data-th-text="#{products.list.header}"></h1>
 <table>
     <thead>
     <tr>
         <th>#</th>
-        <th>Товар</th>
+        <th data-th-text="#{products.list.product}"/>
     </tr>
     </thead>
     <tbody>
-         <tr data-th-each="product : ${products}">
-             <td data-th-text="${product.id}" />
-             <td>
-                 <a data-th-href="@{/catalogue/products/{productId}(productId=${product.id})}"
-                    data-th-text="${product.title}">
-                 </a>
-             </td>
-         </tr>
+    <tr data-th-each="product : ${products}">
+        <td data-th-text="${product.id}"/>
+        <td>
+            <a data-th-href="@{/catalogue/products/{productId}(productId=${product.id})}"
+               data-th-text="${product.title}">
+            </a>
+        </td>
+    </tr>
     </tbody>
 </table>
 

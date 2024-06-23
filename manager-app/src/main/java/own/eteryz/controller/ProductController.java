@@ -2,6 +2,7 @@ package own.eteryz.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,7 @@ import own.eteryz.entity.Product;
 import own.eteryz.payload.UpdateProductPayload;
 import own.eteryz.service.ProductService;
 
+import java.util.Locale;
 import java.util.NoSuchElementException;
 
 @Controller
@@ -18,10 +20,12 @@ public class ProductController {
 
     private final ProductService productService;
 
+    private final MessageSource messageSource;
+
     @ModelAttribute("product")
     public Product product(@PathVariable("productId") int productId){
         return this.productService.findProduct(productId)
-                .orElseThrow(() -> new NoSuchElementException("Product not found"));
+                .orElseThrow(() -> new NoSuchElementException("catalogue.errors.product.not_found"));
     }
 
     @GetMapping
@@ -50,10 +54,15 @@ public class ProductController {
     public String handleNoSuchElementException(
             NoSuchElementException e,
             Model model,
-            HttpServletResponse response
+            HttpServletResponse response,
+            Locale locale
     ) {
         response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-        model.addAttribute("error", e.getMessage());
+        model.addAttribute("error",
+                this.messageSource.getMessage(
+                        e.getMessage(), new Object[0], e.getMessage(), locale
+                )
+        );
         return "errors/404";
     }
 }
