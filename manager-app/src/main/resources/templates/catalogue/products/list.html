@@ -14,12 +14,12 @@
     <thead>
     <tr>
         <th>#</th>
-        <th data-th-text="#{products.list.product}"/>
+        <th data-th-text="#{products.list.product}"></th>
     </tr>
     </thead>
     <tbody>
     <tr data-th-each="product : ${products}">
-        <td data-th-text="${product.id}"/>
+        <td data-th-text="${product.id}"></td>
         <td>
             <a data-th-href="@{/catalogue/products/{productId}(productId=${product.id})}"
                data-th-text="${product.title}">

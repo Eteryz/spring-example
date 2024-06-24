@@ -6,19 +6,19 @@
 </head>
 <body>
 <a data-th-href="@{/catalogue/products/list}">
-    &larr; <span data-th-text="#{product.create.back}"/>
+    &larr; <span data-th-text="#{product.create.back}"></span>
 </a>
 <h1 data-th-text="${product.title}"></h1>
 <ul>
-    <li><strong data-th-text="#{product.id}"/>: <span data-th-text="${product.id}"/></li>
-    <li><strong data-th-text="#{product.title}"/>: <span data-th-text="${product.title}"/></li>
-    <li><strong data-th-text="#{product.description}"/>: <span data-th-text="${product.details}"/></li>
+    <li><strong data-th-text="#{product.id}"></strong>: <span data-th-text="${product.id}"></span></li>
+    <li><strong data-th-text="#{product.title}"></strong>: <span data-th-text="${product.title}"></span></li>
+    <li><strong data-th-text="#{product.description}"></strong>: <span data-th-text="${product.details}"></span></li>
 </ul>
 <a data-th-href="@{/catalogue/products/{productId}/edit(productId=${product.id})}"
    data-th-text="#{product.edit.button.content}">
 </a>
 <form method="post" data-th-action="@{/catalogue/products/{productId}/delete(productId=${product.id})}">
-    <button type="submit" data-th-text="#{product.delete.button.content}"/>
+    <button type="submit" data-th-text="#{product.delete.button.content}"></button>
 </form>
 </body>
 </html>
