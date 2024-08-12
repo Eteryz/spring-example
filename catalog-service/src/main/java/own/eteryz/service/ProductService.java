@@ -6,7 +6,8 @@ import own.eteryz.entity.Product;
 import java.util.Optional;
 
 public interface ProductService {
-    Iterable<Product> findAllProduct();
+
+    Iterable<Product> findAllProduct(String filter);
 
     Product createProduct(String title, String details);
 

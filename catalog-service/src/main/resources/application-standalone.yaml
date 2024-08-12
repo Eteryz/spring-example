@@ -14,3 +14,5 @@ spring:
     schemas:
       - public
       - catalogue
+  jpa:
+    show-sql: true
