@@ -11,7 +11,6 @@ import own.eteryz.controller.payload.NewProductPayload;
 import own.eteryz.entity.Product;
 import own.eteryz.service.ProductService;
 
-import java.util.List;
 import java.util.Map;
 
 
@@ -23,7 +22,7 @@ public class ProductsRestController {
     private final ProductService productService;
 
     @GetMapping
-    public List<Product> getProducts() {
+    public Iterable<Product> getProducts() {
         return this.productService.findAllProduct();
     }
 

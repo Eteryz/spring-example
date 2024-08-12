@@ -3,11 +3,10 @@ package own.eteryz.service;
 
 import own.eteryz.entity.Product;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface ProductService {
-    List<Product> findAllProduct();
+    Iterable<Product> findAllProduct();
 
     Product createProduct(String title, String details);
 

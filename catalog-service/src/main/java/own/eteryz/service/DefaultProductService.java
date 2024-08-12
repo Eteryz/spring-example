@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import own.eteryz.entity.Product;
 import own.eteryz.repository.ProductRepository;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -16,7 +15,7 @@ public class DefaultProductService implements ProductService {
     private final ProductRepository productRepository;
 
     @Override
-    public List<Product> findAllProduct() {
+    public Iterable<Product> findAllProduct() {
         return this.productRepository.findAll();
     }
 
