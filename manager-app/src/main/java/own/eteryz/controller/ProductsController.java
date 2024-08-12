@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import own.eteryz.client.ProductsRestClient;
 import own.eteryz.client.exception.BadRequestException;
 import own.eteryz.controller.payload.NewProductPayload;
@@ -19,8 +20,9 @@ public class ProductsController {
     private final ProductsRestClient productsRestClient;
 
     @GetMapping("list")
-    public String getProductList(Model model) {
-        model.addAttribute("products", this.productsRestClient.findAllProduct());
+    public String getProductList(Model model, @RequestParam(name = "filter", required = false) String filter) {
+        model.addAttribute("products", this.productsRestClient.findAllProduct(filter));
+        model.addAttribute("filter", filter);
         return "catalogue/products/list";
     }
 
