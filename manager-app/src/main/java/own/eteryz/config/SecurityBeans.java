@@ -29,6 +29,7 @@ public class SecurityBeans {
                                 .hasRole("MANAGER")
                 )
                 .oauth2Login(Customizer.withDefaults())
+                .oauth2Client(Customizer.withDefaults())
                 .build();
     }
 
