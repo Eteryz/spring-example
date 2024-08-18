@@ -10,3 +10,21 @@ server:
 catalog:
   service:
     baseUrl: http://localhost:8080/api/v1
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8082/realms/eteryz
+            user-name-attribute: preferred_username
+        registration:
+          manager-app:
+            provider: keycloak
+            client-id: manager-app
+            client-secret: w4C43j12n16A4SxnS2nej09pJBPux94P
+            scope:
+              - openid
+              - view_catalogue
+              - edit_catalogue
+              - microprofile-jwt
