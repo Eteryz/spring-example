@@ -16,3 +16,9 @@ spring:
       - catalogue
   jpa:
     show-sql: true
+  security:
+    user:
+      name: catalog_service_user
+      password: '{noop}password'
+      roles:
+        - SERVICE

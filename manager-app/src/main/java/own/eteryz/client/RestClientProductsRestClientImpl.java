@@ -54,7 +54,7 @@ public class RestClientProductsRestClientImpl implements ProductsRestClient {
         try {
             return Optional.ofNullable(this.restClient
                     .get()
-                    .uri("/products/{productId}", productId)
+                    .uri("/catalog/products/{productId}", productId)
                     .retrieve()
                     .body(Product.class));
         } catch (HttpClientErrorException.NotFound exception) {
@@ -67,7 +67,7 @@ public class RestClientProductsRestClientImpl implements ProductsRestClient {
         try {
             this.restClient
                     .patch()
-                    .uri("/products/{productId}", id)
+                    .uri("/catalog/products/{productId}", id)
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(new UpdateProductPayload(title, details))
                     .retrieve()
@@ -83,7 +83,7 @@ public class RestClientProductsRestClientImpl implements ProductsRestClient {
         try {
             this.restClient
                     .delete()
-                    .uri("/products/{productId}", id)
+                    .uri("/catalog/products/{productId}", id)
                     .retrieve()
                     .toBodilessEntity();
         } catch (HttpClientErrorException.NotFound exception) {

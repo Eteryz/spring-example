@@ -18,7 +18,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("${apiPrefix.v1}/products/{productId:\\d+}")
+@RequestMapping("${apiPrefix.v1}/catalog/products/{productId:\\d+}")
 public class ProductRestController {
 
     private final ProductService productService;
