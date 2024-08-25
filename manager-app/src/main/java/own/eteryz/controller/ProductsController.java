@@ -41,7 +41,7 @@ public class ProductsController {
             return "redirect:/catalogue/products/%d".formatted(product.id());
         } catch (BadRequestException e) {
             model.addAttribute("payload", payload);
-            model.addAttribute("errors", e);
+            model.addAttribute("errors", e.getErrors());
             return "catalogue/products/create";
         }
     }
