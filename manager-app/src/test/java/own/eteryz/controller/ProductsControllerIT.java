@@ -20,7 +20,6 @@ public class ProductsControllerIT {
     MockMvc mockMvc;
 
     @Test
-
     void getNewProductPage_ReturnsProductPage() throws Exception {
         // given
         // Можно добиться с помощью аннотации @WithMockUser()

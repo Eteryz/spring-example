@@ -40,7 +40,7 @@ public class ProductsRestController {
             Product product = productService.createProduct(payload.title(), payload.details());
             return ResponseEntity
                     .created(uriBuilder
-                            .pathSegment("/{productId}")
+                            .replacePath("/api/v1/catalog/products/{productId}")
                             .build(Map.of("productId", product.getId())))
                     .body(product);
         }

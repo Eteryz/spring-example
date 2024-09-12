@@ -14,17 +14,14 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityBeans {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(
-            HttpSecurity http,
-            @Value("${apiPrefix.v1}") String apiPrefix
-            ) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                        .requestMatchers(HttpMethod.POST, "%s/catalog/products/".formatted(apiPrefix))
+                        .requestMatchers(HttpMethod.POST, "/api/v1/catalog/products")
                         .hasAuthority("SCOPE_edit_catalogue")
-                        .requestMatchers(HttpMethod.PATCH, "%s/catalog/products/{productId:\\d+}".formatted(apiPrefix))
+                        .requestMatchers(HttpMethod.PATCH, "/api/v1/catalog/products/{productId:\\d+}")
                         .hasAuthority("SCOPE_edit_catalogue")
-                        .requestMatchers(HttpMethod.DELETE, "%s/catalog/products/{productId:\\d+}".formatted(apiPrefix))
+                        .requestMatchers(HttpMethod.DELETE, "api/v1/catalog/products/{productId:\\d+}")
                         .hasAuthority("SCOPE_edit_catalogue")
                         .requestMatchers(HttpMethod.GET)
                         .hasAuthority("SCOPE_view_catalogue")
