@@ -124,7 +124,7 @@ class ProductRestControllerIT {
                         content().contentTypeCompatibleWith(MediaType.APPLICATION_PROBLEM_JSON),
                         content().json("""
                                 {
-                                    "errors": ["Название товара должно быть указано"]
+                                    "errors": ["Название товара не должно быть пустым"]
                                 }""")
                 );
     }
@@ -132,7 +132,7 @@ class ProductRestControllerIT {
     @Test
     void updateProduct_ProductDoesNotExist_ReturnsNotFound() throws Exception {
         // given
-        var requestBuilder = MockMvcRequestBuilders.patch("/api/v1/v1/catalog/products/1")
+        var requestBuilder = MockMvcRequestBuilders.patch("/api/v1/catalog/products/1")
                 .locale(Locale.of("ru"))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
