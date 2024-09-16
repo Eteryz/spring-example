@@ -1,0 +1,7 @@
+server:
+  port: 8083
+
+eteryz:
+  services:
+    catalog:
+      url: http://localhost:8080
