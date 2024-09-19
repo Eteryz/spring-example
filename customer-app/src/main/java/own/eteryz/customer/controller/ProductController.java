@@ -1,8 +1,12 @@
 package own.eteryz.customer.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import own.eteryz.customer.client.ProductsClient;
 import own.eteryz.customer.controller.payload.NewProductReviewPayload;
@@ -10,6 +14,8 @@ import own.eteryz.customer.entity.Product;
 import own.eteryz.customer.service.FavouriteProductService;
 import own.eteryz.customer.service.ProductReviewsService;
 import reactor.core.publisher.Mono;
+
+import java.util.NoSuchElementException;
 
 @Controller
 @RequiredArgsConstructor
@@ -23,7 +29,8 @@ public class ProductController {
 
     @ModelAttribute(name = "product", binding = false)
     public Mono<Product> loadProduct(@PathVariable("productId") int productId) {
-        return this.productsClient.findProduct(productId);
+        return this.productsClient.findProduct(productId)
+                .switchIfEmpty(Mono.error(new NoSuchElementException("customer.products.error.not_found")));
     }
 
 
@@ -62,10 +69,31 @@ public class ProductController {
     @PostMapping("create-review")
     public Mono<String> createReview(
             @PathVariable("productId") int productId,
-            NewProductReviewPayload reviewPayload
+            @Valid NewProductReviewPayload reviewPayload,
+            BindingResult bindingResult,
+            Model model
     ) {
-        return this.productReviewsService.createProductReview(
-                        productId, reviewPayload.rating(), reviewPayload.review()
-                ).thenReturn("redirect:/customer/products/%d".formatted(productId));
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("inFavourite", false);
+            model.addAttribute("payload", reviewPayload);
+            model.addAttribute("errors", bindingResult.getAllErrors()
+                    .stream()
+                    .map(ObjectError::getDefaultMessage)
+                    .toList());
+            return this.favouriteProductService.findFavouriteProductByProductId(productId)
+                    .doOnNext(favouriteProduct -> model.addAttribute("inFavourite", true))
+                    .thenReturn("customer/products/product");
+        } else {
+            return this.productReviewsService.createProductReview(
+                    productId, reviewPayload.rating(), reviewPayload.review()
+            ).thenReturn("redirect:/customer/products/%d".formatted(productId));
+        }
+
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public String handleNoSuchElementException(NoSuchElementException ex, Model model) {
+        model.addAttribute("error", ex.getMessage());
+        return "errors/404";
     }
 }
