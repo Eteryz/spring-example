@@ -1,6 +1,7 @@
 package own.eteryz.customer.service;
 
 import own.eteryz.customer.entity.FavouriteProduct;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface FavouriteProductService {
@@ -9,4 +10,6 @@ public interface FavouriteProductService {
     Mono<Void> removeFavouriteProduct(int productId);
 
     Mono<FavouriteProduct> findFavouriteProductByProductId(int productId);
+
+    Flux<FavouriteProduct> findFavouriteProducts();
 }

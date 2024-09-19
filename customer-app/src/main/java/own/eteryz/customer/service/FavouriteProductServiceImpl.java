@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import own.eteryz.customer.entity.FavouriteProduct;
 import own.eteryz.customer.repository.FavouriteProductRepository;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
@@ -27,5 +28,10 @@ public class FavouriteProductServiceImpl implements FavouriteProductService {
     @Override
     public Mono<FavouriteProduct> findFavouriteProductByProductId(int productId) {
         return this.favouriteProductRepository.findByProductId(productId);
+    }
+
+    @Override
+    public Flux<FavouriteProduct> findFavouriteProducts() {
+        return this.favouriteProductRepository.findAll();
     }
 }
