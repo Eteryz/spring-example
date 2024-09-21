@@ -1,11 +1,12 @@
 package own.eteryz.repository;
 
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import own.eteryz.entity.ProductReview;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
-public interface ProductReviewRepository {
+import java.util.UUID;
 
-    Mono<ProductReview> save(ProductReview productReview);
-    Flux<ProductReview> findAllByProductId(long id);
+public interface ProductReviewRepository extends ReactiveCrudRepository<ProductReview, UUID> {
+
+    Flux<ProductReview> findAllByProductId(int productId);
 }
