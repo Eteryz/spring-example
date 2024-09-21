@@ -2,9 +2,12 @@ package own.eteryz.customer.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.web.server.csrf.CsrfToken;
+import org.springframework.security.web.reactive.result.view.CsrfRequestDataValueProcessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ServerWebExchange;
 import own.eteryz.customer.client.FavouriteProductClient;
 import own.eteryz.customer.client.ProductReviewsClient;
 import own.eteryz.customer.client.ProductsClient;
@@ -14,6 +17,7 @@ import own.eteryz.customer.entity.Product;
 import reactor.core.publisher.Mono;
 
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
@@ -92,5 +96,14 @@ public class ProductController {
     public String handleNoSuchElementException(NoSuchElementException ex, Model model) {
         model.addAttribute("error", ex.getMessage());
         return "errors/404";
+    }
+
+    @ModelAttribute
+    public Mono<CsrfToken> loadCsrfToken(ServerWebExchange exchange) {
+        return Objects.requireNonNull(
+                        exchange.<Mono<CsrfToken>>getAttribute(CsrfToken.class.getName())
+                )
+                .doOnSuccess(csrfToken -> exchange.getAttributes()
+                        .put(CsrfRequestDataValueProcessor.DEFAULT_CSRF_ATTR_NAME, csrfToken));
     }
 }
