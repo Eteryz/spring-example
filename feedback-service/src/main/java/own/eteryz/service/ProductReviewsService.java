@@ -1,6 +1,6 @@
-package own.eteryz.customer.service;
+package own.eteryz.service;
 
-import own.eteryz.customer.entity.ProductReview;
+import own.eteryz.entity.ProductReview;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

@@ -1,9 +1,9 @@
-package own.eteryz.customer.service;
+package own.eteryz.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import own.eteryz.customer.entity.FavouriteProduct;
-import own.eteryz.customer.repository.FavouriteProductRepository;
+import own.eteryz.entity.FavouriteProduct;
+import own.eteryz.repository.FavouriteProductRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

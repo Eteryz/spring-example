@@ -1,10 +1,10 @@
-package own.eteryz.customer.service;
+package own.eteryz.service;
 
-import own.eteryz.customer.entity.FavouriteProduct;
+import own.eteryz.entity.FavouriteProduct;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface FavouriteProductService {
+public interface  FavouriteProductService {
     Mono<FavouriteProduct> addFavouriteProduct(int productId);
 
     Mono<Void> removeFavouriteProduct(int productId);
