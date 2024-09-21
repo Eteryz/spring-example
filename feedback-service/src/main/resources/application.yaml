@@ -1,8 +1,15 @@
+server:
+  port: 8084
+
 spring:
   application:
     name: feedback-service
   data:
     mongodb:
       uri: mongodb://localhost:27017/feedback-db
-server:
-  port: 8084
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8082/realms/eteryz
