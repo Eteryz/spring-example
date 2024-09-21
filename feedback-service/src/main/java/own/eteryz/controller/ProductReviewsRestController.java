@@ -2,6 +2,7 @@ package own.eteryz.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -11,6 +12,8 @@ import own.eteryz.service.ProductReviewsService;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import static org.springframework.data.mongodb.core.query.Query.query;
+import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 @RestController
 @RequestMapping("feedback-api/v1/product-reviews")
@@ -19,11 +22,14 @@ public class ProductReviewsRestController {
 
     private final ProductReviewsService productReviewsService;
 
+    private final ReactiveMongoTemplate reactiveMongoTemplate;
+
     @GetMapping("by-product-id/{productId:\\d+}")
     public Flux<ProductReview> findProductReviewsByProductId(
             @PathVariable("productId") int productId
     ) {
-        return this.productReviewsService.findProductReviewsByProductId(productId);
+        var query = query(where("productId").is(productId));
+        return this.reactiveMongoTemplate.find(query, ProductReview.class);
     }
 
     @PostMapping
