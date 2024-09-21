@@ -5,3 +5,20 @@ eteryz:
   services:
     catalog:
       url: http://localhost:8080
+
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8082/realms/eteryz
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            client-id: customer-app
+            client-secret: opagLi9gLBNRjo9vkYVrlkdul3c2cuy2
+            scope:
+              - openid
+              - view_catalogue
+            provider: keycloak
