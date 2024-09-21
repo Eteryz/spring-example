@@ -5,11 +5,11 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface  FavouriteProductService {
-    Mono<FavouriteProduct> addFavouriteProduct(int productId);
+    Mono<FavouriteProduct> addFavouriteProduct(int productId, String userId);
 
-    Mono<Void> removeFavouriteProduct(int productId);
+    Mono<Void> removeFavouriteProduct(int productId, String userId);
 
-    Mono<FavouriteProduct> findFavouriteProductByProductId(int productId);
+    Mono<FavouriteProduct> findFavouriteProductByProductId(int productId, String userId);
 
-    Flux<FavouriteProduct> findFavouriteProducts();
+    Flux<FavouriteProduct> findFavouriteProducts(String userId);
 }
