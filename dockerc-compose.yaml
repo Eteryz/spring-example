@@ -12,3 +12,12 @@ services:
     volumes:
       - ./config/keycloak/import:/opt/keycloak/data/import
     command: start-dev --import-realm
+
+  victoria-metrics:
+    image: victoriametrics/victoria-metrics:v1.93.12
+    container_name: eteryz-metrics
+    ports:
+      - "8428:8428"
+    volumes:
+      - ./config/victoria-metrics/promscrape.yaml:/promscrape.yaml
+    command: -promscrape.config=promscrape.yaml
