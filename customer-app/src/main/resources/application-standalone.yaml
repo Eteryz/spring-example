@@ -7,6 +7,8 @@ eteryz:
       url: http://localhost:8080
 
 spring:
+  application:
+    name: customer-app
   security:
     oauth2:
       client:
@@ -22,3 +24,20 @@ spring:
               - openid
               - view_catalogue
             provider: keycloak
+
+management:
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  endpoints: # экспорт всех метрик
+    web:
+      exposure:
+        include: '*'
+  zipkin:
+    tracing:
+      endpoint: http://host.docker.internal:9411/api/v2/spans
+  tracing:
+    sampling:
+      probability: 1.0 #соберем все трейсы
