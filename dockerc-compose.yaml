@@ -21,3 +21,12 @@ services:
     volumes:
       - ./config/victoria-metrics/promscrape.yaml:/promscrape.yaml
     command: -promscrape.config=promscrape.yaml
+
+  grafana:
+    image: grafana/grafana:10.2.4
+    container_name: eteryz-grafana
+    user: "0:0"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data/grafana:/var/lib/grafana
