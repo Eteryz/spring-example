@@ -6,7 +6,7 @@ apiPrefix:
 
 spring:
   application:
-    name: catalog-app
+    name: catalog-service
   datasource:
     url: jdbc:postgresql://localhost:5433/catalogue
     username: catalogue
