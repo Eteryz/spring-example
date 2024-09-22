@@ -3,4 +3,30 @@ scrape_configs:
     metrics_path: '/actuator/prometheus'
     scheme: http
     static_configs:
-      - targets: ["host.docker.internal:8085"]
+      - targets: [ "host.docker.internal:8085" ]
+  - job_name: eteryz_catalog_service
+    metrics_path: '/actuator/prometheus'
+    scheme: http
+    static_configs:
+      - targets: [ "host.docker.internal:8080" ]
+    oauth2:
+      client_id: victoria-metrics
+      client_secret: wVUWG507y3BpkHSpmdeOwXlF7GH0bV51
+      token_url: http://host.docker.internal:8082/realms/eteryz/protocol/openid-connect/token
+      scopes:
+        - metrics
+      endpoint_params:
+        grant_type: client_credentials
+  - job_name: eteryz_feedback_service
+    metrics_path: '/actuator/prometheus'
+    scheme: http
+    static_configs:
+      - targets: [ "host.docker.internal:8084" ]
+    oauth2:
+      client_id: victoria-metrics
+      client_secret: wVUWG507y3BpkHSpmdeOwXlF7GH0bV51
+      token_url: http://host.docker.internal:8082/realms/eteryz/protocol/openid-connect/token
+      scopes:
+        - metrics
+      endpoint_params:
+        grant_type: client_credentials

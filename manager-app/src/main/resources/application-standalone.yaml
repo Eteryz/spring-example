@@ -23,7 +23,7 @@ spring:
           manager-app:
             provider: keycloak
             client-id: manager-app
-            client-secret: w4C43j12n16A4SxnS2nej09pJBPux94P
+            client-secret: 1XtjbDVYnsSIdFxwEnqDzrqoS6l0Xo67
             scope:
               - openid
               - view_catalogue
