@@ -21,6 +21,14 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8082/realms/eteryz
+  boot:
+    admin:
+      client:
+        enabled: true
+        instance:
+          name: catalog-service
+          service-host-type: ip
+        url: http://localhost:8085
 
 springdoc:
   swagger-ui:
