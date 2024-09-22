@@ -23,7 +23,7 @@ public class SecurityBeans {
                         .hasAuthority("SCOPE_edit_catalogue")
                         .requestMatchers(HttpMethod.DELETE, "api/v1/catalog/products/{productId:\\d+}")
                         .hasAuthority("SCOPE_edit_catalogue")
-                        .requestMatchers("/actuator/*").hasAuthority("SCOPE_metrics")
+                        .requestMatchers("/actuator/**").hasAuthority("SCOPE_metrics")
                         .requestMatchers(HttpMethod.GET).hasAuthority("SCOPE_view_catalogue")
                         .anyRequest().denyAll()
                 )

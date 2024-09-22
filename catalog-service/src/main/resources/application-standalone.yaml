@@ -38,3 +38,15 @@ springdoc:
 
 keycloak:
   uri: http://localhost:8082
+
+
+management:
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  endpoints: # экспорт всех метрик
+    web:
+      exposure:
+        include: '*'
