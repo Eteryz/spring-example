@@ -1,13 +1,23 @@
 server:
-  port: 8084
+  port: 8080
+
+apiPrefix:
+  v1: 'api/v1'
 
 spring:
   application:
-    name: feedback-service
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017/feedback-db
-
+    name: catalog-service
+  datasource:
+    url: jdbc:postgresql://localhost:5433/catalogue
+    username: catalogue
+    password: catalogue
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    schemas:
+      - public
+      - catalogue
+  jpa:
+    show-sql: true
   security:
     oauth2:
       resourceserver:
@@ -18,19 +28,19 @@ spring:
       client:
         enabled: true
         instance:
-          name: feedback-service
+          name: catalog-service
           service-host-type: ip
         url: http://localhost:8085
-
 
 springdoc:
   swagger-ui:
     oauth:
-      client-id: feedback-service-swagger-ui
+      client-id: catalogue-service-swagger-ui
       use-pkce-with-authorization-code-grant: true
 
 keycloak:
   uri: http://localhost:8082
+
 
 management:
   health:
@@ -50,3 +60,10 @@ management:
   tracing:
     sampling:
       probability: 1.0 #соберем все трейсы
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true

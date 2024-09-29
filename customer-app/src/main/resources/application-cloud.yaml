@@ -4,7 +4,7 @@ server:
 eteryz:
   services:
     catalog:
-      url: http://localhost:8080
+      url: lb://catalog-service
     feedback:
       url: lb://FEEDBACK-SERVICE
 
