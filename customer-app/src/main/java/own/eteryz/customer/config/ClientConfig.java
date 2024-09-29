@@ -2,6 +2,7 @@ package own.eteryz.customer.config;
 
 import io.micrometer.observation.ObservationRegistry;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.loadbalancer.reactive.ReactorLoadBalancerExchangeFilterFunction;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -15,6 +16,7 @@ import own.eteryz.customer.client.WebClientProductReviewsClient;
 import own.eteryz.customer.client.WebClientProductsClient;
 
 @Configuration
+// @LoadBalanced // Если для всех клиентов настроена балансировка
 public class ClientConfig {
 
     @Bean
@@ -46,20 +48,24 @@ public class ClientConfig {
     @Bean
     public WebClientProductReviewsClient webClientProductReviewsClient(
             @Value("${eteryz.services.feedback.url:http://localhost:8084}") String baseUrl,
-            WebClient.Builder eteryzServicesWebClientBuilder
+            WebClient.Builder eteryzServicesWebClientBuilder,
+            ReactorLoadBalancerExchangeFilterFunction reactorLoadBalancer
     ) {
         return new WebClientProductReviewsClient(eteryzServicesWebClientBuilder
                 .baseUrl(baseUrl)
+                .filter(reactorLoadBalancer)
                 .build());
     }
 
     @Bean
     public WebClientFavouriteProductClient webClientFavouriteProductsClient(
             @Value("${eteryz.services.feedback.url:http://localhost:8084}") String baseUrl,
-            WebClient.Builder eteryzServicesWebClientBuilder
+            WebClient.Builder eteryzServicesWebClientBuilder,
+            ReactorLoadBalancerExchangeFilterFunction reactorLoadBalancer
     ) {
         return new WebClientFavouriteProductClient(eteryzServicesWebClientBuilder
                 .baseUrl(baseUrl)
+                .filter(reactorLoadBalancer)
                 .build());
     }
 }
