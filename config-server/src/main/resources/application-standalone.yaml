@@ -1,0 +1,14 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: eteryz-config-server
+  cloud:
+    config:
+      server:
+       native:
+         search-locations: file:./config/cloud
+
+# native предполагает что файлы хранятся в той же самой систем, где развернуто приложение
+# при запуске сервера необходимо добавить профиль native
