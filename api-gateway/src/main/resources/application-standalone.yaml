@@ -1,0 +1,52 @@
+server:
+  port: 8086
+  forward-headers-strategy: framework
+
+spring:
+  application:
+    name: api-gateway
+  boot:
+    admin:
+      client:
+        url: http://localhost:8085
+        enabled: true
+        instance:
+          name: api-gateway
+          service-host-type: ip
+          service-base-url: http://localhost:8086
+          management-base-url: http://localhost:8086
+  cloud:
+    config:
+      enabled: false
+    gateway:
+      routes:
+        - id: catalog-service-route
+          uri: lb://catalog-service
+          predicates:
+            - Host=catalog.api.${ipAddress}.nip.io:8086
+        - id: feedback-service-route
+          uri: lb://feedback-service
+          predicates:
+            - Host=feedback.api.${ipAddress}.nip.io:8086
+
+
+# vmOptions -DipAddress=0.0.0.0
+management:
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  zipkin:
+    tracing:
+      endpoint: http://172.17.0.1:9411/api/v2/spans
+  tracing:
+    sampling:
+      probability: 1.0
+eureka:
+  client:
+    enabled: false

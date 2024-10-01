@@ -1,0 +1,49 @@
+server:
+  port: 8086
+  forward-headers-strategy: framework
+
+spring:
+  application:
+    name: api-gateway
+  boot:
+    admin:
+      client:
+        enabled: false
+  cloud:
+    gateway:
+      routes:
+        - id: catalog-service-route
+          uri: lb://catalog-service
+          predicates:
+            - Host=catalog.api.${ipAddress}.nip.io:8086
+        - id: feedback-service-route
+          uri: lb://feedback-service
+          predicates:
+            - Host=feedback.api.${ipAddress}.nip.io:8086
+
+
+# vmOptions -DipAddress=0.0.0.0
+management:
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  zipkin:
+    tracing:
+      endpoint: http://172.17.0.1:9411/api/v2/spans
+  tracing:
+    sampling:
+      probability: 1.0
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: false
+    registry-fetch-interval-seconds: 1
+  instance:
+    prefer-ip-address: true
