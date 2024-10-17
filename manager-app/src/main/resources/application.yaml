@@ -1,8 +1,0 @@
-﻿#spring:
-#  profiles:
-#    active:
-#      - docker
-#      - k8s
-#      - other
-server:
-  port: 8081

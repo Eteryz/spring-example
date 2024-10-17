@@ -1,0 +1,4 @@
+eteryz:
+  services:
+    manager:
+      url: http://localhost:54321

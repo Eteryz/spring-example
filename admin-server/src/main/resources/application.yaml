@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: admin-server
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8082/realms/eteryz
+        registration:
+          keycloak:
+            authorization-grant-type: client_credentials
+            scope:
+              - metrics
+            client-id: admin-service
+            client-secret: 63HLuI92quE5GGslvLCTAEJQkqIXfkaX
+server:
+  port: 8085
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - prometheus

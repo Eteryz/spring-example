@@ -1,0 +1,52 @@
+server:
+  port: 8083
+
+eteryz:
+  services:
+    catalog:
+      url: lb://catalog-service
+    feedback:
+      url: lb://FEEDBACK-SERVICE
+
+spring:
+  application:
+    name: customer-app
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8082/realms/eteryz
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            client-id: customer-app
+            client-secret: opagLi9gLBNRjo9vkYVrlkdul3c2cuy2
+            scope:
+              - openid
+              - view_catalogue
+            provider: keycloak
+
+management:
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  endpoints: # экспорт всех метрик
+    web:
+      exposure:
+        include: '*'
+  zipkin:
+    tracing:
+      endpoint: http://host.docker.internal:9411/api/v2/spans
+  tracing:
+    sampling:
+      probability: 1.0 #соберем все трейсы
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

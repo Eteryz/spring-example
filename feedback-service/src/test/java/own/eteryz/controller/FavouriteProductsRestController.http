@@ -1,0 +1,24 @@
+### GET getFavouriteProducts
+GET http://localhost:8084/feedback-api/v1/favourite-products
+
+### GET findFavouriteProduct
+GET http://localhost:8084/feedback-api/v1/favourite-products/by-product-id/1
+
+### POST Добавить в избранное
+POST http://localhost:8084/feedback-api/v1/favourite-products
+Content-Type: application/json
+
+{
+  "productId": 1
+}
+
+### Delete Удалить из избранного
+DELETE http://localhost:8084/feedback-api/v1/favourite-products/by-product-id/1
+
+
+### Dynamic variables in scripts
+< {%
+    const longUUID = $randomInt.repeat(+$random.integer(1, 5))
+    request.variables.set("generatedQuery", longUUID)
+%}
+GET http://localhost:8084/feedback-api/v1/favourite-products/by-product-id/{{generatedQuery}}

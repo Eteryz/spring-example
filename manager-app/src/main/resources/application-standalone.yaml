@@ -1,0 +1,52 @@
+﻿#spring:
+#  profiles:
+#    active:
+#      - docker
+#      - k8s
+#      - other
+server:
+  port: 8081
+
+catalog:
+  service:
+    baseUrl: http://localhost:8080/api/v1
+    registration-id: manager-app
+spring:
+  application:
+    name: manager-app
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8082/realms/eteryz
+            user-name-attribute: preferred_username
+        registration:
+          manager-app:
+            provider: keycloak
+            client-id: manager-app
+            client-secret: 1XtjbDVYnsSIdFxwEnqDzrqoS6l0Xo67
+            scope:
+              - openid
+              - view_catalogue
+              - edit_catalogue
+              - microprofile-jwt
+
+management:
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  endpoints: # экспорт всех метрик
+    web:
+      exposure:
+        include:
+          - health
+          - prometheus
+  zipkin:
+    tracing:
+      endpoint: http://host.docker.internal:9411/api/v2/spans
+  tracing:
+    sampling:
+      probability: 1.0 #соберем все трейсы
